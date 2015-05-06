@@ -34,7 +34,7 @@ var Player = function (x,y) {
     this.y = y;
 }
 
-Player.prototype.update = function(dt) {
+Player.prototype.update = function() {
 
 }
 
@@ -42,6 +42,31 @@ Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
 
+Player.prototype.handleInput = function (key) {
+    var min_height = 0;
+    var min_width = 0;
+    var max_height = 415;
+    var max_width = 404;
+
+    switch (key) {
+        case 'left' :  if (this.x > min_width) {
+                        this.x = this.x - 101;
+                       }
+                       break;
+        case 'up' :    if (this.y > min_height) {
+                        this.y = this.y - 83;
+                       };
+                       break;
+        case 'right' : if (this.x < max_width) {
+                        this.x = this.x + 101;
+                       }
+                       break;
+        case 'down' :  if (this.y < max_height) {
+                        this.y = this.y + 83;
+                       }
+                       break;
+    }
+}
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
