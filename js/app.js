@@ -42,19 +42,34 @@ Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
 
+//This method is called when the player reaches the water. It moves
+//the player back to its initial location.
+Player.prototype.reset = function() {
+    this.x = 202;
+    this.y = 415;
+}
+
+//This method receive user input (the key that was pressed) and moves
+//the player accordingly. It also checked that the player does not 
+//move off screen and if the player reaches the water, it calls the 
+//reset method.
 Player.prototype.handleInput = function (key) {
     var min_height = 0;
     var min_width = 0;
     var max_height = 415;
     var max_width = 404;
-
+  
     switch (key) {
         case 'left' :  if (this.x > min_width) {
                         this.x = this.x - 101;
                        }
                        break;
         case 'up' :    if (this.y > min_height) {
-                        this.y = this.y - 83;
+                        if (this.y === 83) {
+                            player.reset();
+                        } else {
+                            this.y = this.y - 83;
+                        }                     
                        };
                        break;
         case 'right' : if (this.x < max_width) {
@@ -91,3 +106,5 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
+
+
