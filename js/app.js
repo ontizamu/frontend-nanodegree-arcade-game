@@ -17,7 +17,18 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers. 
+
     this.x = this.x + (this.speed * dt);
+
+    // Check for collisions
+
+    if (! (this.x > (player.x + 75) || (this.x + 101) < (player.x + 25) || (this.y + 27) > (player.y + 83)  || (this.y + 83) < (player.y + 21) )) {
+          console.log ("Collision !");
+          console.log ("Enemy left-top-right-bottom " + this.x + " , " + this.y + " , " + (this.x + 101) + " , " + (this.y +83));
+          console.log ("Player left-top-right-bottom " + player.x + " , " + player.y + " , " + (player.x + 101) + " , " + (player.y +83));
+          player.reset();
+          console.log ("Game reset !");
+    }
 }
 
 // Draw the enemy on the screen, required method for game
@@ -35,6 +46,7 @@ var Player = function (x,y) {
 }
 
 Player.prototype.update = function() {
+    // console.log ("Position of player " + player.x + " , " + player.y);
 
 }
 
@@ -87,9 +99,9 @@ Player.prototype.handleInput = function (key) {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 var allEnemies = new Array();
-allEnemies[0] = new Enemy(0,83,100);
-allEnemies[1] = new Enemy(0,166,200);
-allEnemies[2] = new Enemy(0,249,300);
+allEnemies[0] = new Enemy(0,83,50);
+allEnemies[1] = new Enemy(0,166,70);
+allEnemies[2] = new Enemy(0,249,90);
 var player = new Player(202,415);
 
 
