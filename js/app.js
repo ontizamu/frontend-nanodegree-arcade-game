@@ -11,7 +11,7 @@ var Enemy = function(x,y,speed) {
     this.speed = speed;
 }
 
-// Update the enemy's position, required method for game
+// Update the enemy's position, and handles collisions with the player.
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
 
@@ -45,11 +45,8 @@ Enemy.prototype.update = function(dt) {
     // Check for collisions. If a collision occurs the game is reset.
 
     if (! (leftEnemy > rightPlayer || rightEnemy < leftPlayer || topEnemy > bottomPlayer  || bottomEnemy < topPlayer )) {
-          console.log ("Collision !");
-          console.log ("Enemy left-top-right-bottom " + this.x + " , " + this.y + " , " + (this.x + 101) + " , " + (this.y +83));
-          console.log ("Player left-top-right-bottom " + player.x + " , " + player.y + " , " + (player.x + 101) + " , " + (player.y +83));
           player.reset();
-          console.log ("Game reset !");
+          score.total = score.total - 50;
     }
 }
 
@@ -67,9 +64,9 @@ var Player = function (x,y) {
     this.y = y;
 }
 
+//Do not know what to put on this method. In this program the method that updates 
+//the position of the player is handleInput.
 Player.prototype.update = function() {
-    // console.log ("Position of player " + player.x + " , " + player.y);
-
 }
 
 Player.prototype.render = function() {
@@ -100,8 +97,9 @@ Player.prototype.handleInput = function (key) {
                        }
                        break;
         case 'up' :    if (this.y > min_height) {
-                        if (this.y === water_level) {
+                        if (this.y === water_level) {  //Player reaches the water
                             player.reset();
+                            score.total = score.total + 100;
                         } else {
                             this.y = this.y - 83;
                         }                     
@@ -118,16 +116,33 @@ Player.prototype.handleInput = function (key) {
     }
 }
 
+//Score Class, this class requires a render method 
+//to display the score in the right top corner.
+//Every time the player reaches the water 100 points
+//are added, and when it collides with an enemy 50 points are deducted.
+var Score = function (total) {
+    this.total = total;
+}
+
+Score.prototype.render = function() {
+    ctx.font = "36pt Impact";
+    ctx.textAlign = "center";
+
+    ctx.strokeStyle = "white";
+    ctx.lineWidth = 2;
+    ctx.strokeText (this.total,454,90);
+}
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 var allEnemies = new Array();
-allEnemies[0] = new Enemy(0,83,130);
-allEnemies[1] = new Enemy(0,166,130);
-allEnemies[2] = new Enemy(202,166,90);
-allEnemies[3] = new Enemy(0,249,90);
-//allEnemies[4] = new Enemy(404,249,300);
+allEnemies[0] = new Enemy(101,83,130);
+allEnemies[1] = new Enemy(0,166,120);
+allEnemies[2] = new Enemy(202,166,100);
+allEnemies[3] = new Enemy(0,249,110);
 var player = new Player(202,415);
+var score = new Score(0);
 
 
 
