@@ -14,15 +14,37 @@ var Enemy = function(x,y,speed) {
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
+
+    var max_width = 505;
+    // Variables to define the limits of enemies and player
+    var leftEnemy, rightEnemy, topEnemy, bottomEnemy, leftPlayer, rightPlayer, topPlayer, bottomPlayer; 
+
+    //Check if the enemy has reached the end of the screen and if that is the case, move it back 
+    //to the beginning
+    if (this.x >= max_width)
+        this.x = 0;
+
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers. 
-
+    
     this.x = this.x + (this.speed * dt);
 
-    // Check for collisions
+    //Assigned current limits of enemy and player to variables.
 
-    if (! (this.x > (player.x + 75) || (this.x + 101) < (player.x + 25) || (this.y + 27) > (player.y + 83)  || (this.y + 83) < (player.y + 21) )) {
+    leftEnemy = this.x;
+    rightEnemy = this.x + 101;
+    topEnemy = this.y + 27;
+    bottomEnemy = this.y + 83;
+    leftPlayer = player.x + 25;
+    rightPlayer = player.x + 75;
+    topPlayer = player.y + 21;
+    bottomPlayer = player.y + 83;
+
+
+    // Check for collisions. If a collision occurs the game is reset.
+
+    if (! (leftEnemy > rightPlayer || rightEnemy < leftPlayer || topEnemy > bottomPlayer  || bottomEnemy < topPlayer )) {
           console.log ("Collision !");
           console.log ("Enemy left-top-right-bottom " + this.x + " , " + this.y + " , " + (this.x + 101) + " , " + (this.y +83));
           console.log ("Player left-top-right-bottom " + player.x + " , " + player.y + " , " + (player.x + 101) + " , " + (player.y +83));
@@ -70,6 +92,7 @@ Player.prototype.handleInput = function (key) {
     var min_width = 0;
     var max_height = 415;
     var max_width = 404;
+    var water_level = 83;
   
     switch (key) {
         case 'left' :  if (this.x > min_width) {
@@ -77,7 +100,7 @@ Player.prototype.handleInput = function (key) {
                        }
                        break;
         case 'up' :    if (this.y > min_height) {
-                        if (this.y === 83) {
+                        if (this.y === water_level) {
                             player.reset();
                         } else {
                             this.y = this.y - 83;
@@ -99,9 +122,11 @@ Player.prototype.handleInput = function (key) {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 var allEnemies = new Array();
-allEnemies[0] = new Enemy(0,83,50);
-allEnemies[1] = new Enemy(0,166,70);
-allEnemies[2] = new Enemy(0,249,90);
+allEnemies[0] = new Enemy(0,83,130);
+allEnemies[1] = new Enemy(0,166,130);
+allEnemies[2] = new Enemy(202,166,90);
+allEnemies[3] = new Enemy(0,249,90);
+//allEnemies[4] = new Enemy(404,249,300);
 var player = new Player(202,415);
 
 
