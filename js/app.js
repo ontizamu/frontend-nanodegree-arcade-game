@@ -30,7 +30,7 @@ Enemy.prototype.update = function(dt) {
     
     this.x = this.x + (this.speed * dt);
 
-    //Assigned current limits of enemy and player to variables.
+    //Assigned enemy and player's limits to variables.
 
     leftEnemy = this.x;
     rightEnemy = this.x + 101;
@@ -42,7 +42,7 @@ Enemy.prototype.update = function(dt) {
     bottomPlayer = player.y + 83;
 
 
-    // Check for collisions. If a collision occurs the game is reset.
+    // Check for collisions. If a collision occurs the game is reset and the score decreases by 50 points.
 
     if (! (leftEnemy > rightPlayer || rightEnemy < leftPlayer || topEnemy > bottomPlayer  || bottomEnemy < topPlayer )) {
           player.reset();
@@ -59,16 +59,17 @@ Enemy.prototype.render = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 var Player = function (x,y) {
-    this.sprite = 'images/char-boy.png';
+    this.sprite = 'images/char-cat-girl.png';
     this.x = x;
     this.y = y;
 }
 
-//Do not know what to put on this method. In this program the method that updates 
+//Do not know what to put on this method. In my program the method that updates 
 //the position of the player is handleInput.
 Player.prototype.update = function() {
 }
 
+//Draw the player in screen.
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
@@ -80,10 +81,10 @@ Player.prototype.reset = function() {
     this.y = 415;
 }
 
-//This method receive user input (the key that was pressed) and moves
-//the player accordingly. It also checked that the player does not 
+//This method receives user input (the key that was pressed) and moves
+//the player accordingly. It also checks that the player does not 
 //move off screen and if the player reaches the water, it calls the 
-//reset method.
+//reset method and add 100 to the score.
 Player.prototype.handleInput = function (key) {
     var min_height = 0;
     var min_width = 0;
@@ -136,6 +137,7 @@ Score.prototype.render = function() {
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
+
 var allEnemies = new Array();
 allEnemies[0] = new Enemy(101,83,130);
 allEnemies[1] = new Enemy(0,166,120);
