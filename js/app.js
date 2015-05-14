@@ -42,7 +42,8 @@ Enemy.prototype.update = function(dt) {
     bottomPlayer = player.y + 83;
 
 
-    // Check for collisions. If a collision occurs the game is reset and the score decreases by 50 points.
+    // Check for collisions (Found the algorithm on the forums).
+    // If a collision occurs the game is reset and the score is decreased by 50 points.
 
     if (! (leftEnemy > rightPlayer || rightEnemy < leftPlayer || topEnemy > bottomPlayer  || bottomEnemy < topPlayer )) {
           player.reset();
