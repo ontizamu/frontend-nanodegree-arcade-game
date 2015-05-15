@@ -9,7 +9,7 @@ var Enemy = function(x,y,speed) {
     this.x = x;
     this.y = y;
     this.speed = speed;
-}
+};
 
 // Update the enemy's position, and handles collisions with the player.
 // Parameter: dt, a time delta between ticks
@@ -21,8 +21,9 @@ Enemy.prototype.update = function(dt) {
 
     //Check if the enemy has reached the end of the screen and if that is the case, move it back 
     //to the beginning
-    if (this.x >= max_width)
+    if (this.x >= max_width) {
         this.x = 0;
+    }
 
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
