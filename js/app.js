@@ -45,7 +45,7 @@ Enemy.prototype.update = function(dt) {
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-}
+};
 
 // Check for collisions (Found the algorithm on the forums).
 // If a collision occurs the game is reset and the score is decreased by 50 points.
@@ -79,10 +79,10 @@ var Player = function (x,y) {
 //Update player's limits.
 Player.prototype.update = function() {
     //Update player limits
-    this.leftPlayer =  player.x + 25;
-    this.rightPlayer = player.x + 75;
-    this.topPlayer = player.y + 21;
-    this.bottomPlayer = player.y + 83;
+    this.leftPlayer =  this.x + 25;
+    this.rightPlayer = this.x + 75;
+    this.topPlayer = this.y + 21;
+    this.bottomPlayer = this.y + 83;
 };
 
 //Draw the player in screen.
@@ -117,12 +117,12 @@ Player.prototype.handleInput = function (key) {
                        break;
         case 'up' :    if (this.y > MIN_HEIGHT) {
                         if (this.y === WATER_LEVEL) {  //Player reaches the water
-                            player.reset();
+                            this.reset();
                             score.total = score.total + 100;
                         } else {
                             this.y = this.y - REC_HEIGHT;
                         }                     
-                       };
+                       }
                        break;
         case 'right' : if (this.x < MAX_WIDTH) {
                         this.x = this.x + REC_WIDTH;
@@ -156,7 +156,7 @@ Score.prototype.render = function() {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-var allEnemies = new Array();
+var allEnemies = [];
 allEnemies[0] = new Enemy(101,83,130);
 allEnemies[1] = new Enemy(0,166,120);
 allEnemies[2] = new Enemy(202,166,100);
